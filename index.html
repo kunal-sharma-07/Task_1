@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ummeed Foundation | Growing Hope, Together</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  /* ============ TOKENS ============ */
+  :root{
+    --forest:      #163B2C;
+    --forest-deep: #0E2A1F;
+    --leaf:        #2E7D52;
+    --leaf-bright: #4FAE73;
+    --sprout:      #8FD9A8;
+    --cream:       #F6F9F4;
+    --white:       #FFFFFF;
+    --ink:         #17241C;
+    --ink-soft:    #4C5C52;
+    --line:        #E1EBE2;
+
+    --radius-lg: 26px;
+    --radius-md: 18px;
+    --radius-sm: 10px;
+
+    --shadow-sm: 0 6px 18px rgba(16,50,33,0.08);
+    --shadow-md: 0 16px 40px rgba(16,50,33,0.14);
+    --shadow-lg: 0 24px 60px rgba(16,50,33,0.20);
+  }
+
+  /* ============ RESET ============ */
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Poppins',sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ text-decoration:none; color:inherit; }
+  ul{ list-style:none; }
+  section{ padding:100px 8vw; position:relative; }
+  h1,h2,h3,h4{ font-weight:700; color:var(--forest-deep); }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--leaf); margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:""; width:22px; height:2px; background:var(--leaf-bright); border-radius:2px;
+  }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head p{ color:var(--ink-soft); font-size:16px; margin-top:14px; }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:15px 32px; border-radius:50px; font-weight:600; font-size:15px;
+    cursor:pointer; border:2px solid transparent; transition:all .3s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{ background:var(--leaf-bright); color:var(--forest-deep); box-shadow:var(--shadow-sm); }
+  .btn-primary:hover{ background:var(--sprout); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .btn-outline{ border-color:rgba(255,255,255,0.55); color:var(--white); }
+  .btn-outline:hover{ background:rgba(255,255,255,0.12); border-color:#fff; transform:translateY(-3px); }
+  .btn-dark{ background:var(--forest-deep); color:var(--white); }
+  .btn-dark:hover{ background:var(--leaf); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+
+  /* ============ NAVBAR ============ */
+  .navbar{
+    position:sticky; top:0; z-index:999;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 6vw;
+    background:rgba(246,249,244,0.85);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-size:21px; font-weight:800; color:var(--forest-deep);
+  }
+  .logo span{
+    width:38px; height:38px; border-radius:50%;
+    background:linear-gradient(135deg,var(--leaf-bright),var(--forest));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:18px;
+  }
+  .nav-links{ display:flex; align-items:center; gap:34px; }
+  .nav-links a{
+    font-size:14.5px; font-weight:500; color:var(--ink); position:relative; padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-2px; width:0; height:2px;
+    background:var(--leaf-bright); transition:width .3s ease;
+  }
+  .nav-links a:hover{ color:var(--leaf); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:20px; }
+  .nav-cta .btn{ padding:11px 24px; font-size:14px; }
+  .nav-toggle{ display:none; }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative; min-height:92vh; display:flex; align-items:center;
+    padding:0 8vw; overflow:hidden;
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(120deg, rgba(14,42,31,0.92) 10%, rgba(22,59,44,0.72) 55%, rgba(22,59,44,0.35) 100%),
+      url('https://picsum.photos/seed/ummeedhero/1600/1000') center/cover no-repeat;
+    z-index:0;
+  }
+  .hero-blob{
+    position:absolute; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(143,217,168,0.35), transparent 65%);
+    right:-140px; top:-120px; z-index:0;
+  }
+  .hero-content{ position:relative; z-index:1; max-width:680px; color:#fff; padding:80px 0; }
+  .hero-content .eyebrow{ color:var(--sprout); }
+  .hero-content .eyebrow::before{ background:var(--sprout); }
+  .hero-content h1{
+    font-size:clamp(36px,5.6vw,62px); color:#fff; line-height:1.12; margin-bottom:20px;
+    font-weight:800; letter-spacing:-.01em;
+  }
+  .hero-content h1 em{ font-style:normal; color:var(--sprout); }
+  .hero-content p{ font-size:17px; color:#DCE9DF; max-width:520px; margin-bottom:36px; }
+  .hero-btns{ display:flex; flex-wrap:wrap; gap:16px; }
+  .hero-stats{
+    position:relative; z-index:1; display:flex; gap:40px; margin-top:64px; flex-wrap:wrap;
+  }
+  .hero-stats div{ color:#fff; }
+  .hero-stats strong{ display:block; font-size:26px; font-weight:800; color:var(--sprout); }
+  .hero-stats span{ font-size:13px; color:#CFE0D3; }
+
+  /* ============ ABOUT ============ */
+  .about{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap:70px; align-items:center; background:var(--white); }
+  .about-media{ position:relative; }
+  .about-media img{
+    border-radius:var(--radius-lg); box-shadow:var(--shadow-md); width:100%; height:440px; object-fit:cover;
+  }
+  .about-media .tag-card{
+    position:absolute; bottom:-30px; left:-30px; background:var(--forest-deep); color:#fff;
+    padding:22px 26px; border-radius:var(--radius-md); box-shadow:var(--shadow-lg);
+    max-width:230px;
+  }
+  .about-media .tag-card strong{ font-size:28px; color:var(--sprout); display:block; }
+  .about-media .tag-card span{ font-size:13px; color:#CFE0D3; }
+  .about-text p{ color:var(--ink-soft); margin-bottom:18px; font-size:15.5px; }
+  .about-list{ display:grid; gap:14px; margin-top:26px; }
+  .about-list li{ display:flex; gap:12px; align-items:flex-start; font-size:14.5px; color:var(--ink); }
+  .about-list .check{
+    width:24px; height:24px; min-width:24px; border-radius:50%; background:var(--sprout);
+    display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--forest-deep); font-weight:700;
+  }
+
+  /* ============ MISSION / VISION ============ */
+  .mv{ background:var(--cream); }
+  .mv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  .mv-card{
+    background:var(--white); padding:44px; border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-sm); border:1px solid var(--line);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .mv-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow-md); }
+  .mv-icon{
+    width:58px; height:58px; border-radius:16px; margin-bottom:22px;
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+    background:linear-gradient(135deg,var(--sprout),var(--leaf-bright)); color:var(--forest-deep);
+  }
+  .mv-card h3{ font-size:22px; margin-bottom:12px; }
+  .mv-card p{ color:var(--ink-soft); font-size:15px; }
+
+  /* ============ PROJECTS ============ */
+  .projects{ background:var(--white); }
+  .project-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+  .project-card{
+    background:var(--cream); border-radius:var(--radius-lg); overflow:hidden;
+    box-shadow:var(--shadow-sm); border:1px solid var(--line);
+    transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
+    position:relative;
+  }
+  .project-card:hover{ transform:translateY(-10px) scale(1.015); box-shadow:var(--shadow-lg); }
+  .project-media{ position:relative; height:190px; overflow:hidden; }
+  .project-media img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+  .project-card:hover .project-media img{ transform:scale(1.08); }
+  .project-num{
+    position:absolute; top:14px; left:14px; width:38px; height:38px; border-radius:50%;
+    background:rgba(14,42,31,0.85); color:var(--sprout); font-weight:700; font-size:13px;
+    display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px);
+  }
+  .project-body{ padding:26px; }
+  .project-body h3{ font-size:19px; margin-bottom:8px; color:var(--forest-deep); }
+  .project-tagline{ font-size:12.5px; color:var(--leaf); font-weight:600; letter-spacing:.06em; text-transform:uppercase; margin-bottom:10px; }
+  .project-body p{ font-size:14px; color:var(--ink-soft); }
+
+  /* ============ IMPACT COUNTER ============ */
+  .impact{
+    background:linear-gradient(120deg,var(--forest-deep),var(--forest) 60%,var(--leaf));
+    color:#fff; text-align:center;
+  }
+  .impact .section-head{ margin:0 auto 50px; text-align:center; }
+  .impact .section-head p{ color:#CFE0D3; }
+  .impact .eyebrow{ color:var(--sprout); justify-content:center; }
+  .impact .eyebrow::before{ background:var(--sprout); }
+  .impact-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+  .impact-card{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
+    border-radius:var(--radius-md); padding:34px 20px;
+    transition:transform .3s ease, background .3s ease;
+  }
+  .impact-card:hover{ transform:translateY(-6px); background:rgba(255,255,255,0.12); }
+  .impact-card strong{ font-size:40px; font-weight:800; color:var(--sprout); display:block; margin-bottom:8px; }
+  .impact-card span{ font-size:13.5px; color:#DCE9DF; letter-spacing:.03em; }
+
+  /* ============ GALLERY ============ */
+  .gallery{ background:var(--cream); }
+  .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+  .gallery-item{
+    border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-sm);
+    height:260px; position:relative;
+  }
+  .gallery-item img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+  .gallery-item:hover img{ transform:scale(1.1); }
+  .gallery-item::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg,transparent 55%,rgba(14,42,31,0.55));
+    opacity:0; transition:opacity .35s ease;
+  }
+  .gallery-item:hover::after{ opacity:1; }
+
+  /* ============ CTA ============ */
+  .cta{
+    background:linear-gradient(120deg,var(--leaf) 0%,var(--leaf-bright) 100%);
+    border-radius:var(--radius-lg); margin:0 8vw; padding:70px 8vw;
+    display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;
+    box-shadow:var(--shadow-md); color:var(--forest-deep);
+  }
+  .cta h2{ font-size:clamp(26px,3.4vw,38px); max-width:520px; color:var(--forest-deep); }
+  .cta p{ color:#0E2A1F; opacity:.8; margin-top:10px; font-size:15px; max-width:480px; }
+
+  /* ============ CONTACT ============ */
+  .contact{ background:var(--white); }
+  .contact-wrap{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; }
+  .contact-info h3{ font-size:20px; margin-bottom:16px; }
+  .contact-info p{ color:var(--ink-soft); font-size:14.5px; margin-bottom:28px; }
+  .info-row{ display:flex; gap:14px; align-items:flex-start; margin-bottom:22px; }
+  .info-icon{
+    width:44px; height:44px; min-width:44px; border-radius:12px; background:var(--cream);
+    display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--leaf);
+    border:1px solid var(--line);
+  }
+  .info-row strong{ display:block; font-size:14.5px; color:var(--ink); }
+  .info-row span{ font-size:13.5px; color:var(--ink-soft); }
+  .contact-form{
+    background:var(--cream); padding:40px; border-radius:var(--radius-lg);
+    border:1px solid var(--line); box-shadow:var(--shadow-sm);
+  }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+  .form-group{ display:flex; flex-direction:column; gap:8px; }
+  .form-group label{ font-size:13px; font-weight:600; color:var(--forest-deep); }
+  .form-group input, .form-group textarea{
+    padding:13px 16px; border-radius:var(--radius-sm); border:1.5px solid var(--line);
+    font-family:'Poppins',sans-serif; font-size:14px; background:#fff; color:var(--ink);
+    transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .form-group input:focus, .form-group textarea:focus{
+    outline:none; border-color:var(--leaf-bright); box-shadow:0 0 0 4px rgba(79,174,115,0.15);
+  }
+  .form-full{ margin-bottom:22px; }
+
+  /* ============ FOOTER ============ */
+  footer{
+    background:var(--forest-deep); color:#CFE0D3; padding:70px 8vw 30px;
+  }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:40px; margin-bottom:50px; }
+  .footer-brand .logo{ color:#fff; margin-bottom:16px; }
+  .footer-brand p{ font-size:14px; color:#A9C1B0; max-width:280px; }
+  .social-icons{ display:flex; gap:12px; margin-top:22px; }
+  .social-icons a{
+    width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.08);
+    display:flex; align-items:center; justify-content:center; transition:all .3s ease;
+    border:1px solid rgba(255,255,255,0.14);
+  }
+  .social-icons a:hover{ background:var(--leaf-bright); transform:translateY(-4px); }
+  .social-icons svg{ width:17px; height:17px; fill:#fff; }
+  footer h4{ color:#fff; font-size:15px; margin-bottom:20px; }
+  footer ul li{ margin-bottom:12px; }
+  footer ul li a{ font-size:14px; color:#A9C1B0; transition:color .25s ease; }
+  footer ul li a:hover{ color:var(--sprout); }
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.1); padding-top:26px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:13px; color:#8AA491;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px){
+    .about{ grid-template-columns:1fr; }
+    .about-media img{ height:340px; }
+    .project-grid{ grid-template-columns:repeat(2,1fr); }
+    .impact-grid{ grid-template-columns:repeat(2,1fr); }
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .contact-wrap{ grid-template-columns:1fr; }
+  }
+
+  @media (max-width: 760px){
+    section{ padding:70px 6vw; }
+    .nav-links{
+      position:fixed; top:72px; left:0; right:0; background:var(--white);
+      flex-direction:column; align-items:flex-start; gap:0; padding:10px 6vw 20px;
+      border-bottom:1px solid var(--line); transform:translateY(-130%); opacity:0;
+      transition:all .35s ease; pointer-events:none;
+    }
+    .nav-links a{ padding:12px 0; width:100%; border-bottom:1px solid var(--line); }
+    .nav-toggle:checked ~ .nav-links{ transform:translateY(0); opacity:1; pointer-events:auto; }
+    .nav-toggle-label{
+      display:flex; flex-direction:column; gap:5px; cursor:pointer; z-index:1000;
+    }
+    .nav-toggle-label span{ width:24px; height:2px; background:var(--forest-deep); border-radius:2px; }
+    .nav-cta .btn-dark{ display:none; }
+    .mv-grid{ grid-template-columns:1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+    .impact-grid{ grid-template-columns:1fr 1fr; }
+    .gallery-grid{ grid-template-columns:1fr 1fr; }
+    .gallery-item{ height:180px; }
+    .footer-grid{ grid-template-columns:1fr; gap:34px; }
+    .cta{ flex-direction:column; align-items:flex-start; margin:0 5vw; padding:50px 7vw; }
+    .form-row{ grid-template-columns:1fr; }
+    .hero-content{ padding:60px 0; }
+    .hero-stats{ gap:26px; }
+  }
+
+  @media (max-width: 460px){
+    .impact-grid{ grid-template-columns:1fr 1fr; }
+    .gallery-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar">
+    <a href="#home" class="logo"><span>🌱</span> Ummeed Foundation</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="nav-toggle-label" style="display:none;">
+      <span></span><span></span><span></span>
+    </label>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-dark">Donate Now</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="home">
+    <div class="hero-blob"></div>
+    <div class="hero-content">
+      <div class="eyebrow">Registered NGO · Est. 2011</div>
+      <h1>Planting <em>Hope</em>, Growing <em>Futures</em> Together</h1>
+      <p>Ummeed Foundation works with children, families and the environment across rural India — building schools, restoring forests and creating pathways to a better tomorrow.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Donate Now</a>
+        <a href="#projects" class="btn btn-outline">Our Projects</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>50,000+</strong><span>Lives Touched</span></div>
+        <div><strong>120+</strong><span>Villages Reached</span></div>
+        <div><strong>6</strong><span>Active Programs</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="about-media">
+      <img src="https://picsum.photos/seed/ummeedabout/700/700" alt="Community members at Ummeed Foundation">
+      <div class="tag-card">
+        <strong>13+ Years</strong>
+        <span>of grassroots community work across India</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="eyebrow">Who We Are</div>
+      <h2>A Foundation Built on Community, Care &amp; Change</h2>
+      <p>Ummeed Foundation is a non-profit organisation dedicated to empowering underprivileged children, protecting the environment and enabling sustainable livelihoods across rural and semi-urban India.</p>
+      <p>From classrooms to forests, our volunteers and partners work hand-in-hand with local communities to design programs that last — not just for a season, but for generations.</p>
+      <ul class="about-list">
+        <li><span class="check">✓</span> Community-first, locally led programs</li>
+        <li><span class="check">✓</span> 100% transparent fund utilisation</li>
+        <li><span class="check">✓</span> Partnerships with schools, hospitals &amp; local bodies</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ MISSION & VISION ============ -->
+  <section class="mv" id="mission">
+    <div class="section-head">
+      <div class="eyebrow">Why We Exist</div>
+      <h2>Our Mission &amp; Vision</h2>
+      <p>Two ideas guide every program we run — the change we work toward every day, and the world we're working to build.</p>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card">
+        <div class="mv-icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>To provide every child, family and community we work with access to education, healthcare, livelihood support and a clean environment — delivered with dignity and built to be self-sustaining long after we step back.</p>
+      </div>
+      <div class="mv-card">
+        <div class="mv-icon">🌍</div>
+        <h3>Our Vision</h3>
+        <p>A future where no child is denied an education, no family goes without basic care, and every community has the tools, skills and green resources to thrive independently.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="projects" id="projects">
+    <div class="section-head">
+      <div class="eyebrow">Our Programs</div>
+      <h2>Six Projects, One Mission</h2>
+      <p>Each of our flagship programs tackles a different root cause — together, they form a complete cycle of care.</p>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-media">
+          <img src="https://picsum.photos/seed/bachpanshala/500/350" alt="BachpanShala project">
+          <div class="project-num">01</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tagline">Education</div>
+          <h3>BachpanShala</h3>
+          <p>Free, joyful learning centres for underprivileged children in urban slums and rural hamlets.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-media">
+          <img src="https://picsum.photos/seed/sevaproject/500/350" alt="SEVA project">
+          <div class="project-num">02</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tagline">Healthcare</div>
+          <h3>SEVA</h3>
+          <p>Mobile health camps and medical aid bringing essential care to villages with no nearby clinic.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-media">
+          <img src="https://picsum.photos/seed/jeevproject/500/350" alt="JEEV project">
+          <div class="project-num">03</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tagline">Animal Welfare</div>
+          <h3>JEEV</h3>
+          <p>Rescue, rehabilitation and vaccination drives protecting stray and farm animals across our regions.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-media">
+          <img src="https://picsum.photos/seed/udaanproject/500/350" alt="UDAAN project">
+          <div class="project-num">04</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tagline">Livelihood</div>
+          <h3>UDAAN</h3>
+          <p>Vocational training and micro-loans that help young adults and women launch small businesses.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-media">
+          <img src="https://picsum.photos/seed/prakritiproject/500/350" alt="PRAKRITI project">
+          <div class="project-num">05</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tagline">Environment</div>
+          <h3>PRAKRITI</h3>
+          <p>Tree plantation, water conservation and clean-energy drives to restore local ecosystems.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-media">
+          <img src="https://picsum.photos/seed/vikasproject/500/350" alt="VIKAS project">
+          <div class="project-num">06</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tagline">Rural Development</div>
+          <h3>VIKAS</h3>
+          <p>Building sanitation, clean water access and basic infrastructure in the villages we serve.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ IMPACT COUNTER ============ -->
+  <section class="impact" id="impact">
+    <div class="section-head">
+      <div class="eyebrow">Our Reach</div>
+      <h2>Social Impact, In Numbers</h2>
+      <p>Every number below is a person, a family or a village whose everyday life has changed for the better.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <strong>50,000+</strong>
+        <span>Beneficiaries Supported</span>
+      </div>
+      <div class="impact-card">
+        <strong>120+</strong>
+        <span>Villages Reached</span>
+      </div>
+      <div class="impact-card">
+        <strong>8,500+</strong>
+        <span>Trees Planted</span>
+      </div>
+      <div class="impact-card">
+        <strong>300+</strong>
+        <span>Active Volunteers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="gallery" id="gallery">
+    <div class="section-head">
+      <div class="eyebrow">Moments</div>
+      <h2>From The Field</h2>
+      <p>A glimpse into the everyday work of our volunteers and the communities we walk alongside.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://picsum.photos/seed/gallery1ummeed/400/500" alt="Gallery photo 1"></div>
+      <div class="gallery-item"><img src="https://picsum.photos/seed/gallery2ummeed/400/500" alt="Gallery photo 2"></div>
+      <div class="gallery-item"><img src="https://picsum.photos/seed/gallery3ummeed/400/500" alt="Gallery photo 3"></div>
+      <div class="gallery-item"><img src="https://picsum.photos/seed/gallery4ummeed/400/500" alt="Gallery photo 4"></div>
+    </div>
+  </section>
+
+  <!-- ============ CALL TO ACTION ============ -->
+  <section style="padding:0 0 100px;">
+    <div class="cta">
+      <div>
+        <h2>Your Support Can Change A Life Today</h2>
+        <p>Whether it's ₹100 or 10 hours of your time — every contribution helps us reach one more child, one more village.</p>
+      </div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="#contact" class="btn btn-dark">Donate Now</a>
+        <a href="#contact" class="btn" style="background:#fff; color:var(--forest-deep); box-shadow:var(--shadow-sm);">Become a Volunteer</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="section-head">
+      <div class="eyebrow">Get In Touch</div>
+      <h2>Let's Grow Something Together</h2>
+      <p>Have a question, want to volunteer, or partner with us? We'd love to hear from you.</p>
+    </div>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Reach Out To Us</h3>
+        <p>Our team usually responds within 24–48 hours on working days.</p>
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div><strong>Head Office</strong><span>12 Green Park Road, New Delhi, India</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">✉️</div>
+          <div><strong>Email Us</strong><span>hello@ummeedfoundation.org</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📞</div>
+          <div><strong>Call Us</strong><span>+91 98765 43210</span></div>
+        </div>
+      </div>
+      <form class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Full Name</label>
+            <input type="text" id="fname" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="femail">Email Address</label>
+            <input type="email" id="femail" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="form-group form-full">
+          <label for="fsubject">Subject</label>
+          <input type="text" id="fsubject" placeholder="How can we help?">
+        </div>
+        <div class="form-group form-full">
+          <label for="fmessage">Message</label>
+          <textarea id="fmessage" rows="5" placeholder="Write your message here..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo"><span>🌱</span> Ummeed Foundation</a>
+        <p>Growing hope across India's villages and cities — one child, one tree, one home at a time.</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.4c0-.87.24-1.46 1.49-1.46H16.5V4.34C16.2 4.3 15.19 4.2 14 4.2c-2.4 0-4 1.46-4 4.15v2.15H7.5v3H10V21h3.5z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c2.7 0 3 .01 4.1.06 1.1.05 1.8.22 2.2.37.55.2.95.45 1.37.87.42.42.67.82.87 1.37.15.4.32 1.1.37 2.2.05 1.1.06 1.4.06 4.1s-.01 3-.06 4.1c-.05 1.1-.22 1.8-.37 2.2-.2.55-.45.95-.87 1.37-.42.42-.82.67-1.37.87-.4.15-1.1.32-2.2.37-1.1.05-1.4.06-4.1.06s-3-.01-4.1-.06c-1.1-.05-1.8-.22-2.2-.37-.55-.2-.95-.45-1.37-.87-.42-.42-.67-.82-.87-1.37-.15-.4-.32-1.1-.37-2.2C2.21 15 2.2 14.7 2.2 12s.01-3 .06-4.1c.05-1.1.22-1.8.37-2.2.2-.55.45-.95.87-1.37.42-.42.82-.67 1.37-.87.4-.15 1.1-.32 2.2-.37C7.99 2.21 8.3 2.2 12 2.2zm0 1.8c-2.66 0-2.97 0-4.02.06-.86.04-1.33.18-1.64.3-.41.16-.71.35-1.02.66-.31.31-.5.6-.66 1.02-.12.31-.26.78-.3 1.64C4.3 9.03 4.3 9.34 4.3 12s0 2.97.06 4.02c.04.86.18 1.33.3 1.64.16.41.35.71.66 1.02.31.31.6.5 1.02.66.31.12.78.26 1.64.3 1.05.05 1.36.06 4.02.06s2.97 0 4.02-.06c.86-.04 1.33-.18 1.64-.3.41-.16.71-.35 1.02-.66.31-.31.5-.6.66-1.02.12-.31.26-.78.3-1.64.05-1.05.06-1.36.06-4.02s0-2.97-.06-4.02c-.04-.86-.18-1.33-.3-1.64-.16-.41-.35-.71-.66-1.02-.31-.31-.6-.5-1.02-.66-.31-.12-.78-.26-1.64-.3-1.05-.05-1.36-.06-4.02-.06zM12 6.9A5.1 5.1 0 1 1 6.9 12 5.1 5.1 0 0 1 12 6.9zm0 1.8A3.3 3.3 0 1 0 15.3 12 3.3 3.3 0 0 0 12 8.7zm5.3-2.02a1.19 1.19 0 1 1-1.19-1.19 1.19 1.19 0 0 1 1.19 1.19z"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.6a4 4 0 0 0 1.3 5.5c-.7 0-1.3-.2-1.9-.5v.1a4.1 4.1 0 0 0 3.3 4 4.2 4.2 0 0 1-1.8.1 4.1 4.1 0 0 0 3.8 2.9A8.3 8.3 0 0 1 2 18.4a11.7 11.7 0 0 0 6.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.1z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95V21H9z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#mission">Mission &amp; Vision</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Projects</h4>
+        <ul>
+          <li><a href="#projects">BachpanShala</a></li>
+          <li><a href="#projects">SEVA</a></li>
+          <li><a href="#projects">JEEV</a></li>
+          <li><a href="#projects">UDAAN</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>12 Green Park Road, New Delhi</li>
+          <li>hello@ummeedfoundation.org</li>
+          <li>+91 98765 43210</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Ummeed Foundation. All rights reserved.</span>
+      <span>Made with 💚 for a better tomorrow.</span>
+    </div>
+  </footer>
+
+  <style>
+    @media (max-width: 760px){
+      .nav-toggle-label{ display:flex !important; }
+    }
+  </style>
+
+</body>
+</html>
